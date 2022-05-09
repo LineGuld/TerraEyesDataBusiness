@@ -1,0 +1,10 @@
+﻿
+syntax = "proto3"
+
+service AppService{
+    rpc TempFromDataToApp(SensorId) returns (Temp) {}
+    
+    message SensorId{
+    String sensorId; 
+    }
+}

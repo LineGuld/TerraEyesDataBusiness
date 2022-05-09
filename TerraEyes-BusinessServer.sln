@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerraEyes-BusinessServer", "TerraEyes-BusinessServer\TerraEyes-BusinessServer.csproj", "{E004D2CE-5FE5-4470-ACC2-F85E9D0A21CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTesting", "UnitTesting", "{828D9054-2A6C-4BA1-89BD-F7A36B542329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{F0DCB4E5-487E-4FB4-A2E5-5F70AD1BF74A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E004D2CE-5FE5-4470-ACC2-F85E9D0A21CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E004D2CE-5FE5-4470-ACC2-F85E9D0A21CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E004D2CE-5FE5-4470-ACC2-F85E9D0A21CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E004D2CE-5FE5-4470-ACC2-F85E9D0A21CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0DCB4E5-487E-4FB4-A2E5-5F70AD1BF74A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0DCB4E5-487E-4FB4-A2E5-5F70AD1BF74A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0DCB4E5-487E-4FB4-A2E5-5F70AD1BF74A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0DCB4E5-487E-4FB4-A2E5-5F70AD1BF74A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
