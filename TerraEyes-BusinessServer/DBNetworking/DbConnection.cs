@@ -10,7 +10,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
     public class DbConnection : IDbConnect
     {
         private string uri = "http://terraeyesdbserver.eu-central-1.elasticbeanstalk.com/";
-        public async Task<List<TemperatureMeasurement>> GetTemperaturePointFromDb(string userId)
+        public async Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
             HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures");
@@ -27,6 +27,25 @@ namespace TerraEyes_BusinessServer.DBNetworking
             });
 
             return temperatures;
+        }
+
+        public async Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures");
+            
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return humidities;
         }
     }
 }

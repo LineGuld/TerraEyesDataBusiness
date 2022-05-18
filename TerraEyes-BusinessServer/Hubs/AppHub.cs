@@ -16,7 +16,12 @@ namespace TerraEyes_BusinessServer.Hubs
 
         public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId)
         {
-            return await DbConnect.GetTemperaturePointFromDb(userId);
+            return await DbConnect.GetTemperatureFromDb(userId);
+        }
+
+        public async Task<List<HumidityMeasurement>> HumidityDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetHumidityFromDb(userId);
         }
     }
 }
