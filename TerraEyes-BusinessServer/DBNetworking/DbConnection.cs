@@ -47,5 +47,10 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             return humidities;
         }
+
+        public Task<List<CarbonMeasurement>> GetCarbonFromDb(string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

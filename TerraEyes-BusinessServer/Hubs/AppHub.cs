@@ -23,5 +23,10 @@ namespace TerraEyes_BusinessServer.Hubs
         {
             return await DbConnect.GetHumidityFromDb(userId);
         }
+
+        public async Task<List<CarbonMeasurement>> CarbondioxideDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetCarbonFromDb(userId);
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace TerraEyes_BusinessServer.DBNetworking
     {
         Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId);
         Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId);
+        Task<List<CarbonMeasurement>> GetCarbonFromDb(string userId);
     }
 }
