@@ -2,6 +2,6 @@
 {
     public class CarbonMeasurement
     {
-
+        public int CarbonReading { get; set; }
     }
 }

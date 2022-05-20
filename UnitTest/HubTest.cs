@@ -8,6 +8,7 @@ namespace UnitTest
 {
     public class HubTest
     {
+        //Component tests for making sure the functions interact correctly and returns the correct result to the hub
         private readonly AppHub appHub;
 
         public HubTest()
@@ -17,9 +18,9 @@ namespace UnitTest
 
         [Fact]
         public void FetchTemperatureReadingsTest()
-        { 
-           List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("1").Result;
-           Assert.Equal(42, results[0].TemperatureReading);
+        {
+            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("1").Result;
+            Assert.Equal(42, results[0].TemperatureReading);
         }
 
         [Fact]
@@ -35,5 +36,7 @@ namespace UnitTest
             List<CarbonMeasurement> results = appHub.CarbondioxideDataFromDataToAndroid("1").Result;
             Assert.StrictEqual(42, results[0].CarbonReading);
         }
+
+
     }
 }
