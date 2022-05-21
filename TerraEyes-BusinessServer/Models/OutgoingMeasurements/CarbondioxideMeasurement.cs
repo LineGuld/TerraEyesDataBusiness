@@ -1,13 +1,14 @@
+using System.Transactions;
+
 namespace TerraEyes_BusinessServer.Models
 {
-    public class CarbondioxideMeasurement
+    public class CarbondioxideMeasurement : Measurement
     {
-        public int Id { get; set; }
+        
         public int CarbonReading { get; set; }
 
-        public CarbondioxideMeasurement(int id, int carbonReading)
+        public CarbondioxideMeasurement(int carbonReading)
         {
-            Id = id;
             CarbonReading = carbonReading;
         }
 

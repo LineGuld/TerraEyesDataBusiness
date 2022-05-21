@@ -1,14 +1,13 @@
 ﻿namespace TerraEyes_BusinessServer.Models
 {
-    public class TemperatureMeasurement
+    public class TemperatureMeasurement : Measurement
     {
         public TemperatureMeasurement()
         {
         }
 
-        public TemperatureMeasurement(int id, int temperature)
+        public TemperatureMeasurement(int temperature)
         {
-            Id = id;
             TemperatureReading = temperature;
         }
 
