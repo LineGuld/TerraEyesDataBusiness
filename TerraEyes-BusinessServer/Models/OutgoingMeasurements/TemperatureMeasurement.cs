@@ -8,10 +8,10 @@
 
         public TemperatureMeasurement(int temperature)
         {
-            TemperatureReading = temperature;
+            Measurement = temperature;
         }
 
-        public int Id { get; set; }
-        public int TemperatureReading { get; set; }
+       // public int Id { get; set; }
+        public double Measurement { get; set; }
     }
 }

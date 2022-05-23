@@ -14,6 +14,7 @@ namespace TerraEyes_BusinessServer.Hubs
             DbConnect = new DbConnection();
         }
 
+        //Henter alle af den type målinger der hører til en given user
         public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId)
         {
             return await DbConnect.GetTemperatureFromDb(userId);
@@ -22,6 +23,27 @@ namespace TerraEyes_BusinessServer.Hubs
         public async Task<List<HumidityMeasurement>> HumidityDataFromDataToAndroid(string userId)
         {
             return await DbConnect.GetHumidityFromDb(userId);
+        }
+
+        public async Task<List<CarbondioxideMeasurement>> CarbonDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetCarbonMeasurementsFromDb(userId);
+        }
+
+        //Henter alle den givne type målinger for et specifikt terrarie
+        public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId, string eui)
+        {
+            return await DbConnect.GetTerrariumTemperaturesFromDb(userId, eui);
+        }
+
+        public async Task<List<HumidityMeasurement>> HumidityDataFromDataToAndroid(string userId, string eui)
+        {
+            return await DbConnect.GetTerrariumHumidityFromDb(userId, eui);
+        }
+
+        public async Task<List<CarbondioxideMeasurement>> CarbonDataFromDataToAndroid(string userId, string eui)
+        {
+            return await DbConnect.GetTerrariumCarbonMeasurementsFromDb(userId, eui);
         }
     }
 }

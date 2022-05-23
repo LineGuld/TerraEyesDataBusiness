@@ -22,6 +22,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             }
 
             string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(listAsString);
             List<TemperatureMeasurement> temperatures = JsonSerializer.Deserialize<List<TemperatureMeasurement>>(listAsString, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -87,7 +88,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return humidities;
         }
 
-        public async Task<List<CarbondioxideMeasurement>> GetCarbonMearsurementsFromDb(string userId)
+        public async Task<List<CarbondioxideMeasurement>> GetCarbonMeasurementsFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
             HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/carbondioxide/{userId}");
@@ -106,7 +107,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return carbonMeasurements;
         }
 
-         public async Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMearsurementsFromDb(string userId, string terrariumId)
+         public async Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMeasurementsFromDb(string userId, string terrariumId)
         {
             using HttpClient client = new HttpClient();
             HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/carbondioxide/{userId}/{terrariumId}");
