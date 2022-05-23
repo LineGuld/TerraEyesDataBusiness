@@ -12,9 +12,11 @@ namespace UnitTest
         public void FetchTemperatureReadingsTest()
         { 
             AppHub test = new AppHub();
-           List<TemperatureMeasurement> results = test.TemperatureDataFromDataToAndroid("1").Result;
+           List<TemperatureMeasurement> results = test.TemperatureDataFromDataToAndroid("jack").Result;
            
-           Assert.Equal(42, results[0].TemperatureReading);
+           Assert.Equal(12.3, results[0].Measurement);
         }
+        
+        
     }
 }

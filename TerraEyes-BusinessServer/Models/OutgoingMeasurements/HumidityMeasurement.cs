@@ -1,13 +1,12 @@
 ﻿namespace TerraEyes_BusinessServer.Models
 {
-    public class HumidityMeasurement
+    public class HumidityMeasurement : Measurement
     {
         public int Id { get; set; }
         public double HumidityReading { get; set; }
 
-        public HumidityMeasurement(int id, double humidityReading)
+        public HumidityMeasurement(double humidityReading)
         {
-            Id = id;
             HumidityReading = humidityReading;
         }
 
