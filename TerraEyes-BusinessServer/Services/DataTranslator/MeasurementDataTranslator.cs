@@ -21,25 +21,29 @@ namespace TerraEyes_BusinessServer.Services.DataTranslator
             string hexTemp = data[..4];
             string hexHumid = data[4..8];
             string hexCo2 = data[8..12];
-            //string hexPir = data[12..16];
-            //string hexLight = data[16..20];
-            string hexServo = data[20..21];
+            string hexPir = data[12..16];
+            string hexLight = data[16..20];
+            string hexServo = data[21..22];
 
-            double temp = HexToDouble(hexTemp);
-            double humid = HexToDouble(hexHumid);
+            double temp = HexToDouble(hexTemp) / 10;
+            double humid = HexToDouble(hexHumid) / 10;
             double co2 = HexToDouble(hexCo2);
-            //double pir = HexToDouble(hexPir);
-            
+            double pir = HexToDouble(hexPir);
+            double light = HexToDouble(hexLight);
+
             bool servo = HexToBool(hexServo);
 
-            DateTime ts = new DateTime(DateTime.UnixEpoch.Ticks).AddMilliseconds(input.ts);
+            DateTime ts = new DateTime(DateTime.UnixEpoch.Ticks
+                        + TimeSpan.TicksPerHour * 2).AddMilliseconds(input.ts);
 
-            Measurement measurement = new Measurement()
+            Measurement measurement = new Measurement
             {
                 Eui = input.Eui,
                 Temperature = temp,
                 Humidity = humid,
                 CarbonDioxide = co2,
+                Pir = pir,
+                Light = light,
                 TimeStamp = ts,
                 ServoTriggered = servo
             };

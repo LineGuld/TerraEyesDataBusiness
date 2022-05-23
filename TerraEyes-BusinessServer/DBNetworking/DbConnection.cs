@@ -13,7 +13,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
         public async Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures/{userId}");
             
             if (!responseMessage.IsSuccessStatusCode)
             {
@@ -29,10 +29,20 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return temperatures;
         }
 
+        public async Task PostTemperatureToDb(TemperatureMeasurement measurement)
+        {
+            using HttpClient client = new HttpClient();
+            string temperatureAsString = JsonSerializer.Serialize(measurement);
+            HttpContent content = new StringContent(temperatureAsString);
+            HttpResponseMessage responseMessage = await client.PostAsync($"{uri}temperatures", content);
+
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+        }
         public async Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}");
             
             if (!responseMessage.IsSuccessStatusCode)
             {
@@ -47,5 +57,17 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             return humidities;
         }
+
+        public async Task PostHumidityToDb(HumidityMeasurement measurement)
+        {
+            using HttpClient client = new HttpClient();
+            string humidityAsJson = JsonSerializer.Serialize(measurement);
+            HttpContent content = new StringContent(humidityAsJson);
+            HttpResponseMessage responseMessage = await client.PostAsync($"{uri}humidity", content);
+
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+        }
+        
     }
 }
