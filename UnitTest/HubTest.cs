@@ -19,22 +19,39 @@ namespace UnitTest
         [Fact]
         public void FetchTemperatureReadingsTest()
         {
-            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("1").Result;
-            Assert.Equal(42, results[0].TemperatureReading);
+            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack").Result;
+            Assert.Equal(12.3, results[0].Measurement);
         }
 
         [Fact]
+        public void FetchTemperatureFromTerrarium()
+        {
+            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack", "ab23432").Result;
+            Assert.Equal(16.3, results[2].Measurement);
+        }
+
+        [Fact]
+        public void filterTemperaturesByTerrarium()
+        {
+            List<TemperatureMeasurement> ab23432 = appHub.TemperatureDataFromDataToAndroid("jack", "ab23432").Result;
+            List<TemperatureMeasurement> bc6789 = appHub.TemperatureDataFromDataToAndroid("jack", "bc6789").Result;
+
+            Assert.NotEqual(ab23432[0].Measurement, bc6789[0].Measurement);
+        }
+        
+        
+        [Fact]
         public void FetchHumidityReadingTest()
         {
-            List<HumidityMeasurement> results = appHub.HumidityDataFromDataToAndroid("1").Result;
-            Assert.StrictEqual(42, results[0].HumidityReading);
+            List<HumidityMeasurement> results = appHub.HumidityDataFromDataToAndroid("jack").Result;
+            Assert.Equal(65.3, results[0].Measurement);
         }
 
         [Fact]
         public void FetchCarbonReadingTest()
         {
-            List<CarbonMeasurement> results = appHub.CarbondioxideDataFromDataToAndroid("1").Result;
-            Assert.StrictEqual(42, results[0].CarbonReading);
+            List<CarbondioxideMeasurement> results = appHub.CarbonDataFromDataToAndroid("jack").Result;
+            Assert.Equal(351, results[2].Measurement);
         }
 
 

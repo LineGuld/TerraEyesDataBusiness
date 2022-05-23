@@ -91,7 +91,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
         public async Task<List<CarbondioxideMeasurement>> GetCarbonMeasurementsFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/carbondioxide/{userId}");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}carbondioxides/{userId}");
 
             if (!responseMessage.IsSuccessStatusCode)
             {
@@ -110,7 +110,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
          public async Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMeasurementsFromDb(string userId, string terrariumId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/carbondioxide/{userId}/{terrariumId}");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}carbondioxides/{userId}/{terrariumId}");
 
             if (!responseMessage.IsSuccessStatusCode)
             {
