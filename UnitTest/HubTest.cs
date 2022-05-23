@@ -20,23 +20,23 @@ namespace UnitTest
         public void FetchTemperatureReadingsTest()
         {
             List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack").Result;
-            Assert.Equal(12.3, results[0].Measurement);
+            Assert.Equal(26.2, results[0].Measurement);
         }
 
         [Fact]
         public void FetchTemperatureFromTerrarium()
         {
-            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack", "ab23432").Result;
-            Assert.Equal(16.3, results[2].Measurement);
+            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack", "123abc").Result;
+            Assert.Equal(33.2, results[0].Measurement);
         }
 
         [Fact]
         public void filterTemperaturesByTerrarium()
         {
-            List<TemperatureMeasurement> ab23432 = appHub.TemperatureDataFromDataToAndroid("jack", "ab23432").Result;
-            List<TemperatureMeasurement> bc6789 = appHub.TemperatureDataFromDataToAndroid("jack", "bc6789").Result;
+            List<TemperatureMeasurement> abc123 = appHub.TemperatureDataFromDataToAndroid("jack", "abc123").Result;
+            List<TemperatureMeasurement> to = appHub.TemperatureDataFromDataToAndroid("jack", "123abc").Result;
 
-            Assert.NotEqual(ab23432[0].Measurement, bc6789[0].Measurement);
+            Assert.NotEqual(abc123[0].Measurement, to[0].Measurement);
         }
         
         
@@ -44,14 +44,14 @@ namespace UnitTest
         public void FetchHumidityReadingTest()
         {
             List<HumidityMeasurement> results = appHub.HumidityDataFromDataToAndroid("jack").Result;
-            Assert.Equal(65.3, results[0].Measurement);
+            Assert.Equal(72.2, results[0].Measurement);
         }
 
         [Fact]
         public void FetchCarbonReadingTest()
         {
             List<CarbondioxideMeasurement> results = appHub.CarbonDataFromDataToAndroid("jack").Result;
-            Assert.Equal(351, results[2].Measurement);
+            Assert.Equal(350, results[0].Measurement);
         }
 
 
