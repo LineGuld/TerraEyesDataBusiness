@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TerraEyes_BusinessServer.Data;
 using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
@@ -19,12 +20,26 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 
         public async void ValidateMeasurementData(Measurement measurement)
         {
-            //TODO: A tonne of validation...
-
-
+            Validate(measurement);
             await _dbConnect.PostMeasurementToDb(measurement);
         }
-        
-        
+
+        private async void Validate(Measurement measurement)
+        {
+            Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
+
+            if (measurement.Temperature < terrarium.MinTemperature)
+                _errorReportService.ReportErrorToUser(ErrorTypes.Temperature, "min", terrarium.UserId);
+            else if (measurement.Temperature > terrarium.MaxTemperature)
+                _errorReportService.ReportErrorToUser(ErrorTypes.Temperature, "max", terrarium.UserId);
+
+            if (measurement.Humidity < terrarium.MinHumidity)
+                _errorReportService.ReportErrorToUser(ErrorTypes.Humidity, "min", terrarium.UserId);
+            else if (measurement.Humidity > terrarium.MaxHumidity)
+                _errorReportService.ReportErrorToUser(ErrorTypes.Humidity, "max", terrarium.UserId);
+            
+            if (measurement.CarbonDioxide > terrarium.MaxCarbonDioxide)
+                _errorReportService.ReportErrorToUser(ErrorTypes.CarbonDioxide, null, terrarium.UserId);
+        }
     }
 }

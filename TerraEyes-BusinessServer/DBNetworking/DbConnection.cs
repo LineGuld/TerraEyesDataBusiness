@@ -11,6 +11,23 @@ namespace TerraEyes_BusinessServer.DBNetworking
     {
         private string uri = "https://terraeyes-db.azurewebsites.net/";
 
+        public async Task<Terrarium> GetTerrariumInfoFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}terrarium/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+
+            string terrariumAsJson = await responseMessage.Content.ReadAsStringAsync();
+            Terrarium terrarium = JsonSerializer.Deserialize<Terrarium>(terrariumAsJson, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return terrarium;
+        }
+
         public async Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
@@ -154,7 +171,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
              string measurementAsJson = JsonSerializer.Serialize(measurement);
              HttpContent content = new StringContent(measurementAsJson);
 
-             HttpResponseMessage responseMessage = await client.PostAsync($"{uri}/measurement", content);
+             HttpResponseMessage responseMessage = await client.PostAsync($"{uri}measurement", content);
 
              if (!responseMessage.IsSuccessStatusCode)
                  throw new Exception($"StatusCode: {responseMessage.StatusCode}");
