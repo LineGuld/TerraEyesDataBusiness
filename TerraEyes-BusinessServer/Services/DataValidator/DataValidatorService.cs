@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using TerraEyes_BusinessServer.Data;
-using TerraEyes_BusinessServer.DBNetworking;
+﻿using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Services.ErrorReport;
 

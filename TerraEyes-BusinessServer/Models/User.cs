@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TerraEyes_BusinessServer.Models
 {
@@ -13,6 +12,6 @@ namespace TerraEyes_BusinessServer.Models
         [Required]
         public string UserId { get; set; }
 
-        private List<Sensor> OwnedTerraria { get; set; }
+        public string ConnectionId { get; set; }
     }
 }
