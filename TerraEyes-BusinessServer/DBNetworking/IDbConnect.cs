@@ -8,7 +8,9 @@ namespace TerraEyes_BusinessServer.DBNetworking
     {
         //All measurements for a user
         Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId);
+        Task PostTemperatureToDb(TemperatureMeasurement measurement);
         Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId);
+        Task PostHumidityToDb(HumidityMeasurement measurement);
         Task<List<CarbondioxideMeasurement>> GetCarbonMeasurementsFromDb(string userId);
 
         //Measurements for a specific terrarium when a user has multiple

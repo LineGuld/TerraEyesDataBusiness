@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TerraEyes_BusinessServer.Models;
-using TerraEyes_BusinessServer.Services;
 using TerraEyes_BusinessServer.Services.DataTranslator;
 
 namespace TerraEyes_BusinessServer.Network
@@ -20,10 +19,10 @@ namespace TerraEyes_BusinessServer.Network
 
         
         [HttpPost]
-        public ActionResult MeasurementTransmission([FromBody] MeasurementRawInput input)
+        public async Task<ActionResult> MeasurementTransmission([FromBody] MeasurementRawInput input)
         {
             //Todo Model validation??
-
+            
             if (input is null) return BadRequest();
 
             try

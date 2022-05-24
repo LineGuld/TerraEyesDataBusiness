@@ -7,8 +7,8 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 {
     public class DataValidatorService : IDataValidatorService
     {
-        private IErrorReportService _errorReportService;
-        private IDataValidatorDataLink _validatorDataLink;
+        private readonly IErrorReportService _errorReportService;
+        private readonly IDataValidatorDataLink _validatorDataLink;
 
         public DataValidatorService()
         {
@@ -18,14 +18,7 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 
         public void ValidateMeasurementData(Measurement measurement)
         {
-            try
-            {
-               Sensor sensor = _validatorDataLink.findSensor(measurement.Eui);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Console.WriteLine(measurement.ToString());
         }
         
         

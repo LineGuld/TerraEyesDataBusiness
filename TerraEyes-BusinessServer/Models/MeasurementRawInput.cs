@@ -21,5 +21,13 @@ namespace TerraEyes_BusinessServer.Models
  * light 16b unsigned
  * servo 1b
  */
+
+        public override string ToString()
+        {
+            return $"cmd: {cmd}\n" +
+                   $"EUI: {Eui}\n" +
+                   $"ts: {ts}\n" +
+                   $"data: {data}";
+        }
     }
 }
