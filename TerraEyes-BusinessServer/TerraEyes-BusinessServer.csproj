@@ -8,6 +8,11 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="5.0.16" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.17" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
@@ -28,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="UserRepository" />
+      <Folder Include="UserRepository\EFC" />
     </ItemGroup>
 
 </Project>
