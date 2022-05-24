@@ -1,5 +1,6 @@
 ﻿using System;
 using TerraEyes_BusinessServer.Data;
+using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Services.ErrorReport;
 
@@ -8,17 +9,20 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
     public class DataValidatorService : IDataValidatorService
     {
         private readonly IErrorReportService _errorReportService;
-        private readonly IDataValidatorDataLink _validatorDataLink;
+        private readonly IDbConnect _dbConnect;
 
         public DataValidatorService()
         {
             _errorReportService = new ErrorReportService();
-            _validatorDataLink = new DataValidatorDataLink();
+            _dbConnect = new DbConnection();
         }
 
-        public void ValidateMeasurementData(Measurement measurement)
+        public async void ValidateMeasurementData(Measurement measurement)
         {
-            Console.WriteLine(measurement.ToString());
+            //TODO: A tonne of validation...
+
+
+            await _dbConnect.PostMeasurementToDb(measurement);
         }
         
         

@@ -17,5 +17,8 @@ namespace TerraEyes_BusinessServer.DBNetworking
         Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string userId, string terrariumId);
         Task<List<HumidityMeasurement>> GetTerrariumHumidityFromDb(string userId, string terrariumId);
         Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMeasurementsFromDb(string userId, string terrariumId);
+        
+        //Data Post from terrarium
+        Task PostMeasurementToDb(Measurement measurement);
     }
 }

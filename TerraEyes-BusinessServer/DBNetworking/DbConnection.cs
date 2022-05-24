@@ -148,5 +148,16 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return carbonMeasurements;
         }
 
+         public async Task PostMeasurementToDb(Measurement measurement)
+         {
+             using HttpClient client = new HttpClient();
+             string measurementAsJson = JsonSerializer.Serialize(measurement);
+             HttpContent content = new StringContent(measurementAsJson);
+
+             HttpResponseMessage responseMessage = await client.PostAsync($"{uri}/measurement", content);
+
+             if (!responseMessage.IsSuccessStatusCode)
+                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+         }
     }
 }
