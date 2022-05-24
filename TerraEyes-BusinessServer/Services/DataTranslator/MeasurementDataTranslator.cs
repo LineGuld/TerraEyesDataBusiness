@@ -33,8 +33,11 @@ namespace TerraEyes_BusinessServer.Services.DataTranslator
 
             bool servo = HexToBool(hexServo);
 
-            DateTime ts = new DateTime(DateTime.UnixEpoch.Ticks
-                        + TimeSpan.TicksPerHour * 2).AddMilliseconds(input.ts);
+            DateTime ts = new DateTime(DateTime.UnixEpoch.Ticks)
+                .AddHours(2)
+                .AddMilliseconds(input.ts);
+
+            string timeStamp = ts.ToString("yyyy-MM-ddTHH':'mm':'ss.fffZ");
 
             Measurement measurement = new Measurement
             {
@@ -44,7 +47,7 @@ namespace TerraEyes_BusinessServer.Services.DataTranslator
                 CarbonDioxide = co2,
                 Pir = pir,
                 Light = light,
-                TimeStamp = ts,
+                TimeStamp = timeStamp,
                 ServoTriggered = servo
             };
 
