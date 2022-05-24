@@ -7,11 +7,11 @@ namespace TerraEyes_BusinessServer.Models
     {
         public string Eui { get; set; }
         public bool ServoTriggered { get; set; }
-        public double Pir { get; set; }
+        public int Pir { get; set; }
         public double Light { get; set; }
         public double Temperature { get; set; }
         public double Humidity { get; set; }
-        public double CarbonDioxide { get; set; }
+        public int CarbonDioxide { get; set; }
         public string TimeStamp { get; set; }
 
         public override string ToString()

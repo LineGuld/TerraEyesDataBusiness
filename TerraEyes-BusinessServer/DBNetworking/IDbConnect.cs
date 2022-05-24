@@ -6,6 +6,8 @@ namespace TerraEyes_BusinessServer.DBNetworking
 {
     public interface IDbConnect
     {
+        //Terrarium settings
+        Task<Terrarium> GetTerrariumInfoFromDb(string eui);
         //All measurements for a user
         Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId);
         Task PostTemperatureToDb(TemperatureMeasurement measurement);

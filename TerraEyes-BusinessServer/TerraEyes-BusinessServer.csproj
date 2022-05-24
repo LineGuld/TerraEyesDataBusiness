@@ -26,4 +26,8 @@
       <Content Remove="protos\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="UserRepository" />
+    </ItemGroup>
+
 </Project>

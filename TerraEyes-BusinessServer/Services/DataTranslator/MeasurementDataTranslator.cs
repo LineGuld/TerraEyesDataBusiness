@@ -44,8 +44,8 @@ namespace TerraEyes_BusinessServer.Services.DataTranslator
                 Eui = input.Eui,
                 Temperature = temp,
                 Humidity = humid,
-                CarbonDioxide = co2,
-                Pir = pir,
+                CarbonDioxide = (int) co2,
+                Pir = (int) pir,
                 Light = light,
                 TimeStamp = timeStamp,
                 ServoTriggered = servo
