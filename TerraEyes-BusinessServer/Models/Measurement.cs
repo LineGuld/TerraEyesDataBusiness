@@ -12,12 +12,12 @@ namespace TerraEyes_BusinessServer.Models
         public double Temperature { get; set; }
         public double Humidity { get; set; }
         public double CarbonDioxide { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public string TimeStamp { get; set; }
 
         public override string ToString()
         {
             return $"EUI: {Eui}\n" +
-                   $"ts: {TimeStamp.ToShortDateString()} {TimeStamp.ToShortTimeString()}\n" +
+                   $"ts: {TimeStamp}\n" +
                    $"Temp: {Temperature} C\u00b0 \n" +
                    $"Humid: {Humidity}%\n" +
                    $"Co2: {CarbonDioxide} ppm\n" +
