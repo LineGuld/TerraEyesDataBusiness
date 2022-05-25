@@ -4,7 +4,7 @@
     {
         public void ReportErrorToUser(ErrorTypes errorType, string boundary, string userId)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 

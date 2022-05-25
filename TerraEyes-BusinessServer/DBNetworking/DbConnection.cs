@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TerraEyes_BusinessServer.Models;
@@ -20,6 +22,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
 
             string terrariumAsJson = await responseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(terrariumAsJson);
             Terrarium terrarium = JsonSerializer.Deserialize<Terrarium>(terrariumAsJson, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -168,9 +171,14 @@ namespace TerraEyes_BusinessServer.DBNetworking
          public async Task PostMeasurementToDb(Measurement measurement)
          {
              using HttpClient client = new HttpClient();
-             string measurementAsJson = JsonSerializer.Serialize(measurement);
-             HttpContent content = new StringContent(measurementAsJson);
-
+             string measurementAsJson = JsonSerializer.Serialize(measurement, new JsonSerializerOptions
+             {
+                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+             });
+             Console.WriteLine(measurementAsJson);
+             HttpContent content = new StringContent(measurementAsJson,
+                 Encoding.UTF8,
+                 "application/json");
              HttpResponseMessage responseMessage = await client.PostAsync($"{uri}measurement", content);
 
              if (!responseMessage.IsSuccessStatusCode)

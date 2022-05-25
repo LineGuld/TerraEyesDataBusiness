@@ -45,10 +45,10 @@ namespace TerraEyes_BusinessServer.Services.DataTranslator
                 Temperature = temp,
                 Humidity = humid,
                 CarbonDioxide = (int) co2,
-                Pir = (int) pir,
-                Light = light,
-                TimeStamp = timeStamp,
-                ServoTriggered = servo
+                Activity = (int) pir,
+                Lumen = light,
+                Timestamp = timeStamp,
+                ServoMoved = servo
             };
 
             _dataValidatorService.ValidateMeasurementData(measurement);

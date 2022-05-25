@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using TerraEyes_BusinessServer.Data;
 using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Services.ErrorReport;
@@ -20,6 +18,7 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 
         public async void ValidateMeasurementData(Measurement measurement)
         {
+            Console.WriteLine(measurement.ToString());
             Validate(measurement);
             await _dbConnect.PostMeasurementToDb(measurement);
         }

@@ -13,6 +13,5 @@ namespace TerraEyes_BusinessServer.Models
         [Required]
         public string UserId { get; set; }
 
-        private List<Sensor> OwnedTerraria { get; set; }
     }
 }
