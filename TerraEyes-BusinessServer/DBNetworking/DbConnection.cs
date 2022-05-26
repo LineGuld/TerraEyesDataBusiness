@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TerraEyes_BusinessServer.Models;
+using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
+using Measurement = TerraEyes_BusinessServer.Models.Measurement;
 
 namespace TerraEyes_BusinessServer.DBNetworking
 {
@@ -13,22 +14,210 @@ namespace TerraEyes_BusinessServer.DBNetworking
     {
         private string uri = "https://terraeyes-db.azurewebsites.net/";
 
-        public async Task<Terrarium> GetTerrariumInfoFromDb(string eui)
+        public async Task<List<ActivityMeasurement>> GetActivityFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}terrarium/x/{eui}");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}activity/{userId}");
 
             if (!responseMessage.IsSuccessStatusCode)
+            {
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
 
-            string terrariumAsJson = await responseMessage.Content.ReadAsStringAsync();
-            Console.WriteLine(terrariumAsJson);
-            Terrarium terrarium = JsonSerializer.Deserialize<Terrarium>(terrariumAsJson, new JsonSerializerOptions
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<ActivityMeasurement> measurements = JsonSerializer.Deserialize<List<ActivityMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+
+        public async Task<List<ActivityMeasurement>> GetTerrariumActivityFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/activity/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+
+            List<ActivityMeasurement> measurements = JsonSerializer.Deserialize<List<ActivityMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+
+        public async Task<List<CarbondioxideMeasurement>> GetCarbonMeasurementsFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}carbondioxides/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<CarbondioxideMeasurement> carbonMeasurements = JsonSerializer.Deserialize<List<CarbondioxideMeasurement>>(listAsString, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
 
-            return terrarium;
+            return carbonMeasurements;
+        }
+
+        public async Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMeasurementsFromDb(string terrariumId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}carbondioxides/x/{terrariumId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<CarbondioxideMeasurement> carbonMeasurements = JsonSerializer.Deserialize<List<CarbondioxideMeasurement>>(
+                listAsString, new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return carbonMeasurements;
+        }
+        
+        public async Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return humidities;
+        }
+
+        public async Task<List<HumidityMeasurement>> GetTerrariumHumidityFromDb(string terrariumId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/x/{terrariumId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return humidities;
+        }
+
+        public async Task<List<LumenMeasurement>> GetLumenFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}lumen/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<LumenMeasurement> measurements = JsonSerializer.Deserialize<List<LumenMeasurement>>(
+            listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return measurements;
+        }
+        
+        public async Task<List<LumenMeasurement>> GetTerrariumLumenFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}lumen/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<LumenMeasurement> measurements = JsonSerializer.Deserialize<List<LumenMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+
+        public async Task<List<ServoMeasurement>> GetServoFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/servo/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+
+            List<ServoMeasurement> measurements = JsonSerializer.Deserialize<List<ServoMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+        
+        public async Task<List<ServoMeasurement>> GetTerrariumServoFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/servo/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+
+            List<ServoMeasurement> measurements = JsonSerializer.Deserialize<List<ServoMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
         }
 
         public async Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId)
@@ -51,11 +240,11 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             return temperatures;
         }
-
-        public async Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string userId, string terrariumId)
+        
+        public async Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string terrariumId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures/{userId}/{terrariumId}");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures/x/{terrariumId}");
 
             if (!responseMessage.IsSuccessStatusCode)
             {
@@ -70,6 +259,24 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             return temperatures;
         }
+        
+        public async Task<Terrarium> GetTerrariumInfoFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}terrarium/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+
+            string terrariumAsJson = await responseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(terrariumAsJson);
+            Terrarium terrarium = JsonSerializer.Deserialize<Terrarium>(terrariumAsJson, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return terrarium;
+        }
 
         public async Task PostTemperatureToDb(TemperatureMeasurement measurement)
         {
@@ -81,43 +288,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
-        public async Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return humidities;
-        }
-
-          public async Task<List<HumidityMeasurement>> GetTerrariumHumidityFromDb(string userId, string terrariumId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}/{terrariumId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return humidities;
-        }
+        
 
         public async Task PostHumidityToDb(HumidityMeasurement measurement)
         {
@@ -129,46 +300,8 @@ namespace TerraEyes_BusinessServer.DBNetworking
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
-        
-        public async Task<List<CarbondioxideMeasurement>> GetCarbonMeasurementsFromDb(string userId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}carbondioxides/{userId}");
 
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<CarbondioxideMeasurement> carbonMeasurements = JsonSerializer.Deserialize<List<CarbondioxideMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return carbonMeasurements;
-        }
-
-         public async Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMeasurementsFromDb(string userId, string terrariumId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}carbondioxides/{userId}/{terrariumId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<CarbondioxideMeasurement> carbonMeasurements = JsonSerializer.Deserialize<List<CarbondioxideMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return carbonMeasurements;
-        }
-
-         public async Task PostMeasurementToDb(Measurement measurement)
+        public async Task PostMeasurementToDb(Measurement measurement)
          {
              using HttpClient client = new HttpClient();
              string measurementAsJson = JsonSerializer.Serialize(measurement, new JsonSerializerOptions

@@ -25,7 +25,7 @@ namespace TerraEyes_BusinessServer.Models
         public override string ToString()
         {
             return $"cmd: {cmd}\n" +
-                   $"EUI: {Eui}\n" +
+                   $"Eui: {Eui}\n" +
                    $"ts: {ts}\n" +
                    $"data: {data}";
         }

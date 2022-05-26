@@ -25,6 +25,7 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 
         private async void Validate(Measurement measurement)
         {
+            //Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
             Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
 
             if (measurement.Temperature < terrarium.MinTemperature)

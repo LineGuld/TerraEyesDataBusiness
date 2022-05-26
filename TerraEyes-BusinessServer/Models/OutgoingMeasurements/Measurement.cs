@@ -5,15 +5,18 @@ namespace TerraEyes_BusinessServer.Models.OutgoingMeasurements
     public abstract class Measurement
     {
         public int Id { get; set; }
-        public string EUI { get; set; }
+        public string Eui { get; set; }
 
-        public string UserId { get; set; }
-       // public DateTime Timestamp { get; set; }
+        public string Timestamp { get; set; }
 
-        protected Measurement(DateTime timestamp, string eui)
+        protected Measurement() 
         {
-           // Timestamp = timestamp;
-            EUI = eui;
+        }
+
+        protected Measurement(String timestamp, string eui)
+        { 
+            Timestamp = timestamp;
+            Eui = eui;
         }
     }
 }

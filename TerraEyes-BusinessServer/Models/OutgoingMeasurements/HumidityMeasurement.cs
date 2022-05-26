@@ -1,16 +1,10 @@
-﻿namespace TerraEyes_BusinessServer.Models
+﻿namespace TerraEyes_BusinessServer.Models.OutgoingMeasurements
 {
     public class HumidityMeasurement : Measurement
     {
-        public int Id { get; set; }
         public double Measurement { get; set; }
 
-        public HumidityMeasurement(double humidityReading)
-        {
-            Measurement = humidityReading;
-        }
-
-        public HumidityMeasurement()
+        public HumidityMeasurement() : base()
         {
         }
     }
