@@ -9,10 +9,5 @@ namespace TerraEyes_BusinessServer.Models.OutgoingMeasurements
         public ActivityMeasurement() : base()
         {
         }
-
-        public ActivityMeasurement(DateTime timestamp, string eui, int measurement) : base(timestamp, eui)
-        {
-            Measurement = measurement;
-        }
     }
 }

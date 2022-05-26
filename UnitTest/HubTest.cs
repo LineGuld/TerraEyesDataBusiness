@@ -12,37 +12,58 @@ namespace UnitTest
         //Component tests for making sure the functions interact correctly and returns the correct result to the hub
         private readonly AppHub appHub;
         
-        private DateTime timestamp = DateTime.Parse("2022-05-24T09:05:00.000+00:00");
         public HubTest()
         {
             appHub = new AppHub();
         }
 
         [Fact]
-        public void getActivityForUser()
+        public void GetActivityForUserTest()
         {
             List<ActivityMeasurement> results = appHub.ActivityDataFromDataToAndroid("jack").Result;
 
-            Assert.Equal("abc123", results[0].EUI);
-            Assert.Equal(timestamp, results[0].Timestamp);
+            Assert.Equal("abc123", results[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
             Assert.Equal(2, results[0].Measurement);
         }
         
         [Fact]
-        public void getActivityForTerrarium()
+        public void GetActivityForTerrariumTest()
         {
             List<ActivityMeasurement> results = appHub.TerrariumActivityDataFromDataToAndroid("abc123").Result;
 
-            Assert.Equal("abc123", results[0].EUI);
-            Assert.Equal(timestamp, results[0].Timestamp);
+            Assert.Equal("abc123", results[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
             Assert.Equal(2, results[0].Measurement);
         }
 
+        [Fact]
+        public void GetCarbonForUserTest()
+        {
+            List<CarbondioxideMeasurement> results = appHub.CarbonDataFromDataToAndroid("jack").Result;
+            
+            Assert.Equal("abc123", results[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
+            Assert.Equal(350, results[0].Measurement);
+        }
+        
+        [Fact]
+        public void GetCarbonForTerrariumTest()
+        {
+            List<CarbondioxideMeasurement> results = appHub.TerrariumCarbonDataFromDataToAndroid("abc123").Result;
+            
+            Assert.Equal("abc123", results[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
+            Assert.Equal(350, results[0].Measurement);
+        }
+        
+        
         [Fact]
         public void FetchTemperatureReadingsTest()
         {
             List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack").Result;
             
+            Assert.Equal("abc123", results[0].Eui);
             Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
             Assert.Equal(26.2, results[0].Measurement);
         }
@@ -71,12 +92,7 @@ namespace UnitTest
             Assert.Equal(72.2, results[0].Measurement);
         }
 
-        [Fact]
-        public void FetchCarbonReadingTest()
-        {
-            List<CarbondioxideMeasurement> results = appHub.CarbonDataFromDataToAndroid("jack").Result;
-            Assert.Equal(350, results[0].Measurement);
-        }
+        
 
 
     }

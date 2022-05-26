@@ -1,4 +1,4 @@
-﻿namespace TerraEyes_BusinessServer.Models
+﻿namespace TerraEyes_BusinessServer.Models.OutgoingMeasurements
 {
     public class TemperatureMeasurement : Measurement
     {

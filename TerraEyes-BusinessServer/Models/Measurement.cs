@@ -16,7 +16,7 @@ namespace TerraEyes_BusinessServer.Models
 
         public override string ToString()
         {
-            return $"EUI: {Eui}\n" +
+            return $"Eui: {Eui}\n" +
                    $"ts: {Timestamp}\n" +
                    $"Temp: {Temperature} C\u00b0 \n" +
                    $"Humid: {Humidity}%\n" +
