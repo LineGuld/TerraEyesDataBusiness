@@ -96,6 +96,27 @@ namespace UnitTest
             Assert.Equal(1234, result[0].Measurement);
         }
         
+        [Fact]
+        public void GetServoForUserTest()
+        {
+            List<ServoMeasurement> result = appHub.ServoDataFromDataToAndroid("jack").Result;
+            
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.False(result[0].Measurement);
+        }
+        
+        [Fact]
+        public void GetServoForTerrariumTest()
+        {
+            List<ServoMeasurement> result = appHub.TerrariumServoDataFromDataToAndroid("abc123").Result;
+            
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.False(result[0].Measurement);
+        }
+        
+        
         /***************************
          *  Stefan above this line
          ***************************/

@@ -21,6 +21,10 @@ namespace TerraEyes_BusinessServer.DBNetworking
         Task<List<LumenMeasurement>> GetLumenFromDb(string userId);
         Task<List<LumenMeasurement>> GetTerrariumLumenFromDb(string userId);
 
+        Task<List<ServoMeasurement>> GetServoFromDb(string userId);
+        Task<List<ServoMeasurement>> GetTerrariumServoFromDb(string eui);
+        
+        
 
         /***************************
          *  Stefan above this line

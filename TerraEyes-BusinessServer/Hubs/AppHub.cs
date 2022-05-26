@@ -58,9 +58,17 @@ namespace TerraEyes_BusinessServer.Hubs
             return await DbConnect.GetTerrariumLumenFromDb(eui);
         }
 
-        
-        
-        
+        public async Task<List<ServoMeasurement>> ServoDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetServoFromDb(userId);
+        }
+
+        public async Task<List<ServoMeasurement>> TerrariumServoDataFromDataToAndroid(string eui)
+        {
+            return await DbConnect.GetTerrariumServoFromDb(eui);
+        }
+
+
         //  Henter alle af den type målinger der hører til en given user
         public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId)
         {

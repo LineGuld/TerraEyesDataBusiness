@@ -178,6 +178,48 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return measurements;
         }
 
+        public async Task<List<ServoMeasurement>> GetServoFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/servo/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+
+            List<ServoMeasurement> measurements = JsonSerializer.Deserialize<List<ServoMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+        
+        public async Task<List<ServoMeasurement>> GetTerrariumServoFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/servo/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+
+            List<ServoMeasurement> measurements = JsonSerializer.Deserialize<List<ServoMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+
         /***************************
          *  Stefan above this line
          ***************************/
