@@ -220,10 +220,6 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return measurements;
         }
 
-        /***************************
-         *  Stefan above this line
-         ***************************/
-        
         public async Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
@@ -237,6 +233,25 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             string listAsString = await responseMessage.Content.ReadAsStringAsync();
             Console.WriteLine(listAsString);
+            List<TemperatureMeasurement> temperatures = JsonSerializer.Deserialize<List<TemperatureMeasurement>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return temperatures;
+        }
+        
+        public async Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string terrariumId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures/x/{terrariumId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
             List<TemperatureMeasurement> temperatures = JsonSerializer.Deserialize<List<TemperatureMeasurement>>(listAsString, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -261,27 +276,6 @@ namespace TerraEyes_BusinessServer.DBNetworking
             });
 
             return terrarium;
-        }
-
-        
-
-        public async Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string userId, string terrariumId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}temperatures/{userId}/{terrariumId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<TemperatureMeasurement> temperatures = JsonSerializer.Deserialize<List<TemperatureMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return temperatures;
         }
 
         public async Task PostTemperatureToDb(TemperatureMeasurement measurement)

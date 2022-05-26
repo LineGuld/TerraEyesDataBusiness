@@ -76,9 +76,9 @@ namespace TerraEyes_BusinessServer.Hubs
         }
         
         //  Henter alle den givne type målinger for et specifikt terrarie
-        public async Task<List<TemperatureMeasurement>> TerrariumTemperatureDataFromDataToAndroid(string userId, string eui)
+        public async Task<List<TemperatureMeasurement>> TerrariumTemperatureDataFromDataToAndroid(string eui)
         {
-            return await DbConnect.GetTerrariumTemperaturesFromDb(userId, eui);
+            return await DbConnect.GetTerrariumTemperaturesFromDb(eui);
         }
 
     }

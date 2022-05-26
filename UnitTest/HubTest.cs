@@ -19,61 +19,61 @@ namespace UnitTest
         [Fact]
         public void GetActivityForUserTest()
         {
-            List<ActivityMeasurement> results = appHub.ActivityDataFromDataToAndroid("jack").Result;
+            List<ActivityMeasurement> result = appHub.ActivityDataFromDataToAndroid("jack").Result;
 
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(2, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(2, result[0].Measurement);
         }
         
         [Fact]
         public void GetActivityForTerrariumTest()
         {
-            List<ActivityMeasurement> results = appHub.TerrariumActivityDataFromDataToAndroid("abc123").Result;
+            List<ActivityMeasurement> result = appHub.TerrariumActivityDataFromDataToAndroid("abc123").Result;
 
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(2, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(2, result[0].Measurement);
         }
 
         [Fact]
         public void GetCarbonForUserTest()
         {
-            List<CarbondioxideMeasurement> results = appHub.CarbonDataFromDataToAndroid("jack").Result;
+            List<CarbondioxideMeasurement> result = appHub.CarbonDataFromDataToAndroid("jack").Result;
             
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(350, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(350, result[0].Measurement);
         }
         
         [Fact]
         public void GetCarbonForTerrariumTest()
         {
-            List<CarbondioxideMeasurement> results = appHub.TerrariumCarbonDataFromDataToAndroid("abc123").Result;
+            List<CarbondioxideMeasurement> result = appHub.TerrariumCarbonDataFromDataToAndroid("abc123").Result;
             
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(350, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(350, result[0].Measurement);
         }
         
         [Fact]
         public void GetHumidityForUserTest()
         {
-            List<HumidityMeasurement> results = appHub.HumidityDataFromDataToAndroid("jack").Result;
+            List<HumidityMeasurement> result = appHub.HumidityDataFromDataToAndroid("jack").Result;
             
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(72.2, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(72.2, result[0].Measurement);
         }
         
         [Fact]
         public void GetHumidityForTerrariumTest()
         {
-            List<HumidityMeasurement> results = appHub.TerrariumHumidityDataFromDataToAndroid("abc123").Result;
+            List<HumidityMeasurement> result = appHub.TerrariumHumidityDataFromDataToAndroid("abc123").Result;
             
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(72.2, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(72.2, result[0].Measurement);
         }
 
         [Fact]
@@ -116,34 +116,31 @@ namespace UnitTest
             Assert.False(result[0].Measurement);
         }
         
-        
-        /***************************
-         *  Stefan above this line
-         ***************************/
-
-        
         [Fact]
         public void FetchTemperatureReadingsTest()
         {
-            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack").Result;
+            List<TemperatureMeasurement> result = appHub.TemperatureDataFromDataToAndroid("jack").Result;
             
-            Assert.Equal("abc123", results[0].Eui);
-            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
-            Assert.Equal(26.2, results[0].Measurement);
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(26.2, result[0].Measurement);
         }
 
         [Fact]
         public void FetchTemperatureFromTerrarium()
         {
-            List<TemperatureMeasurement> results = appHub.TerrariumTemperatureDataFromDataToAndroid("jack", "123abc").Result;
-            Assert.Equal(33.2, results[0].Measurement);
+            List<TemperatureMeasurement> result = appHub.TerrariumTemperatureDataFromDataToAndroid("123abc").Result;
+            Assert.Equal("123abc", result[0].Eui);
+            Assert.Equal("2022-05-24T09:15:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(33.2, result[0].Measurement);
         }
 
+        
         [Fact]
         public void filterTemperaturesByTerrarium()
         {
-            List<TemperatureMeasurement> abc123 = appHub.TerrariumTemperatureDataFromDataToAndroid("jack", "abc123").Result;
-            List<TemperatureMeasurement> to = appHub.TerrariumTemperatureDataFromDataToAndroid("jack", "123abc").Result;
+            List<TemperatureMeasurement> abc123 = appHub.TerrariumTemperatureDataFromDataToAndroid("abc123").Result;
+            List<TemperatureMeasurement> to = appHub.TerrariumTemperatureDataFromDataToAndroid("123abc").Result;
 
             Assert.NotEqual(abc123[0].Measurement, to[0].Measurement);
         }
