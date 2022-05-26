@@ -1,10 +1,10 @@
 namespace TerraEyes_BusinessServer.Models.OutgoingMeasurements
 {
-    public class ActivityMeasurement : Measurement
+    public class LumenMeasurement : Measurement
     {
         public int Measurement { get; set; }
-
-        public ActivityMeasurement() : base()
+        
+        public LumenMeasurement() : base()
         {
         }
     }

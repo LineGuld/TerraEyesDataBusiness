@@ -47,6 +47,17 @@ namespace TerraEyes_BusinessServer.Hubs
         {
             return await DbConnect.GetTerrariumHumidityFromDb(eui);
         }
+
+        public async Task<List<LumenMeasurement>> LumenDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetLumenFromDb(userId);
+        }
+        
+        public async Task<List<LumenMeasurement>> TerrariumLumenDataFromDataToAndroid(string eui)
+        {
+            return await DbConnect.GetTerrariumLumenFromDb(eui);
+        }
+
         
         
         

@@ -15,10 +15,11 @@ namespace TerraEyes_BusinessServer.DBNetworking
         Task<List<CarbondioxideMeasurement>> GetCarbonMeasurementsFromDb(string userId);
         Task<List<CarbondioxideMeasurement>> GetTerrariumCarbonMeasurementsFromDb(string terrariumId);
 
-
         Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId);
         Task<List<HumidityMeasurement>> GetTerrariumHumidityFromDb(string terrariumId);
 
+        Task<List<LumenMeasurement>> GetLumenFromDb(string userId);
+        Task<List<LumenMeasurement>> GetTerrariumLumenFromDb(string userId);
 
 
         /***************************

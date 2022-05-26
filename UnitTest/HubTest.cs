@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TerraEyes_BusinessServer.Hubs;
-using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
 using Xunit;
 
@@ -76,8 +75,31 @@ namespace UnitTest
             Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
             Assert.Equal(72.2, results[0].Measurement);
         }
+
+        [Fact]
+        public void GetLumenForUserTest()
+        {
+            List<LumenMeasurement> result = appHub.LumenDataFromDataToAndroid("jack").Result;
+            
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(1234, result[0].Measurement);
+        }
+
+        [Fact]
+        public void GetLumenForTerrariumTest()
+        {
+            List<LumenMeasurement> result = appHub.TerrariumLumenDataFromDataToAndroid("abc123").Result;
+            
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", result[0].Timestamp);
+            Assert.Equal(1234, result[0].Measurement);
+        }
         
-        
+        /***************************
+         *  Stefan above this line
+         ***************************/
+
         
         [Fact]
         public void FetchTemperatureReadingsTest()

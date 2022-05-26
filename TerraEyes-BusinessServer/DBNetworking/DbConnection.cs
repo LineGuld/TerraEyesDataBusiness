@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -68,6 +67,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             }
 
             string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
             List<CarbondioxideMeasurement> carbonMeasurements = JsonSerializer.Deserialize<List<CarbondioxideMeasurement>>(listAsString, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -87,6 +87,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             }
 
             string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
             List<CarbondioxideMeasurement> carbonMeasurements = JsonSerializer.Deserialize<List<CarbondioxideMeasurement>>(
                 listAsString, new JsonSerializerOptions {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -106,6 +107,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             }
 
             string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
             List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -125,6 +127,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             }
 
             string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
             List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -132,8 +135,49 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             return humidities;
         }
+
+        public async Task<List<LumenMeasurement>> GetLumenFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}lumen/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<LumenMeasurement> measurements = JsonSerializer.Deserialize<List<LumenMeasurement>>(
+            listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return measurements;
+        }
         
-        
+        public async Task<List<LumenMeasurement>> GetTerrariumLumenFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}lumen/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<LumenMeasurement> measurements = JsonSerializer.Deserialize<List<LumenMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+
         /***************************
          *  Stefan above this line
          ***************************/
