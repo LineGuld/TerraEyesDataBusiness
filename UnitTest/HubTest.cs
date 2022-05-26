@@ -26,15 +26,15 @@ namespace UnitTest
         [Fact]
         public void FetchTemperatureFromTerrarium()
         {
-            List<TemperatureMeasurement> results = appHub.TemperatureDataFromDataToAndroid("jack", "123abc").Result;
+            List<TemperatureMeasurement> results = appHub.TerrariumTemperatureDataFromDataToAndroid("jack", "123abc").Result;
             Assert.Equal(33.2, results[0].Measurement);
         }
 
         [Fact]
         public void filterTemperaturesByTerrarium()
         {
-            List<TemperatureMeasurement> abc123 = appHub.TemperatureDataFromDataToAndroid("jack", "abc123").Result;
-            List<TemperatureMeasurement> to = appHub.TemperatureDataFromDataToAndroid("jack", "123abc").Result;
+            List<TemperatureMeasurement> abc123 = appHub.TerrariumTemperatureDataFromDataToAndroid("jack", "abc123").Result;
+            List<TemperatureMeasurement> to = appHub.TerrariumTemperatureDataFromDataToAndroid("jack", "123abc").Result;
 
             Assert.NotEqual(abc123[0].Measurement, to[0].Measurement);
         }
