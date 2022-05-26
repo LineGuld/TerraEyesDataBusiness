@@ -95,6 +95,45 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return carbonMeasurements;
         }
         
+        public async Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return humidities;
+        }
+
+        public async Task<List<HumidityMeasurement>> GetTerrariumHumidityFromDb(string terrariumId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/x/{terrariumId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return humidities;
+        }
+        
+        
         /***************************
          *  Stefan above this line
          ***************************/
@@ -169,43 +208,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
-        public async Task<List<HumidityMeasurement>> GetHumidityFromDb(string userId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return humidities;
-        }
-
-          public async Task<List<HumidityMeasurement>> GetTerrariumHumidityFromDb(string userId, string terrariumId)
-        {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}humidity/{userId}/{terrariumId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-            }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            List<HumidityMeasurement> humidities = JsonSerializer.Deserialize<List<HumidityMeasurement>>(listAsString, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return humidities;
-        }
+        
 
         public async Task PostHumidityToDb(HumidityMeasurement measurement)
         {

@@ -57,6 +57,27 @@ namespace UnitTest
             Assert.Equal(350, results[0].Measurement);
         }
         
+        [Fact]
+        public void GetHumidityForUserTest()
+        {
+            List<HumidityMeasurement> results = appHub.HumidityDataFromDataToAndroid("jack").Result;
+            
+            Assert.Equal("abc123", results[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
+            Assert.Equal(72.2, results[0].Measurement);
+        }
+        
+        [Fact]
+        public void GetHumidityForTerrariumTest()
+        {
+            List<HumidityMeasurement> results = appHub.TerrariumHumidityDataFromDataToAndroid("abc123").Result;
+            
+            Assert.Equal("abc123", results[0].Eui);
+            Assert.Equal("2022-05-24T09:05:00.000+00:00", results[0].Timestamp);
+            Assert.Equal(72.2, results[0].Measurement);
+        }
+        
+        
         
         [Fact]
         public void FetchTemperatureReadingsTest()
@@ -85,12 +106,7 @@ namespace UnitTest
         }
         
         
-        [Fact]
-        public void FetchHumidityReadingTest()
-        {
-            List<HumidityMeasurement> results = appHub.HumidityDataFromDataToAndroid("jack").Result;
-            Assert.Equal(72.2, results[0].Measurement);
-        }
+        
 
         
 
