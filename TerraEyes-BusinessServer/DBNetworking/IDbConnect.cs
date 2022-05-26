@@ -1,13 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TerraEyes_BusinessServer.Models;
+using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
+using Measurement = TerraEyes_BusinessServer.Models.Measurement;
 
 namespace TerraEyes_BusinessServer.DBNetworking
 {
     public interface IDbConnect
     {
+        //  Get activity from db
+        Task<List<ActivityMeasurement>> GetActivityFromDb(string userId);
+
+        Task<List<ActivityMeasurement>> GetTerrariumActivityFromDb(string eui);
+        
+        
+
         //Terrarium settings
         Task<Terrarium> GetTerrariumInfoFromDb(string eui);
+        
+        
         //All measurements for a user
         Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId);
         Task PostTemperatureToDb(TemperatureMeasurement measurement);

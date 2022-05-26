@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
+using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
 
 namespace TerraEyes_BusinessServer.Hubs
 {
@@ -15,10 +16,29 @@ namespace TerraEyes_BusinessServer.Hubs
             DbConnect = new DbConnection();
         }
         
-        //Henter alle af den type målinger der hører til en given user
+        
+        public async Task<List<ActivityMeasurement>> ActivityDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetActivityFromDb(userId);
+        }
+        
+        public async Task<List<ActivityMeasurement>> TerrariumActivityDataFromDataToAndroid(string eui)
+        {
+            return await DbConnect.GetTerrariumActivityFromDb(eui);
+        } 
+        
+        
+
+        //  Henter alle af den type målinger der hører til en given user
         public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId)
         {
             return await DbConnect.GetTemperatureFromDb(userId);
+        }
+        
+        //  Henter alle den givne type målinger for et specifikt terrarie
+        public async Task<List<TemperatureMeasurement>> TerrariumTemperatureDataFromDataToAndroid(string userId, string eui)
+        {
+            return await DbConnect.GetTerrariumTemperaturesFromDb(userId, eui);
         }
 
         public async Task<List<HumidityMeasurement>> HumidityDataFromDataToAndroid(string userId)
@@ -32,11 +52,7 @@ namespace TerraEyes_BusinessServer.Hubs
         }
 
         
-        //Henter alle den givne type målinger for et specifikt terrarie
-        public async Task<List<TemperatureMeasurement>> TerrariumTemperatureDataFromDataToAndroid(string userId, string eui)
-        {
-            return await DbConnect.GetTerrariumTemperaturesFromDb(userId, eui);
-        }
+        
 
         public async Task<List<HumidityMeasurement>> TerrariumHumidityDataFromDataToAndroid(string userId, string eui)
         {

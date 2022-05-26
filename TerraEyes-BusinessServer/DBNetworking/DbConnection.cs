@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TerraEyes_BusinessServer.Models;
+using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
+using Measurement = TerraEyes_BusinessServer.Models.Measurement;
 
 namespace TerraEyes_BusinessServer.DBNetworking
 {
@@ -13,22 +15,46 @@ namespace TerraEyes_BusinessServer.DBNetworking
     {
         private string uri = "https://terraeyes-db.azurewebsites.net/";
 
-        public async Task<Terrarium> GetTerrariumInfoFromDb(string eui)
+        public async Task<List<ActivityMeasurement>> GetActivityFromDb(string userId)
         {
             using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}terrarium/x/{eui}");
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}activity/{userId}");
 
             if (!responseMessage.IsSuccessStatusCode)
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
-
-            string terrariumAsJson = await responseMessage.Content.ReadAsStringAsync();
-            Console.WriteLine(terrariumAsJson);
-            Terrarium terrarium = JsonSerializer.Deserialize<Terrarium>(terrariumAsJson, new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
 
-            return terrarium;
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            
+            List<ActivityMeasurement> measurements = JsonSerializer.Deserialize<List<ActivityMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
+        }
+
+        public async Task<List<ActivityMeasurement>> GetTerrariumActivityFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}/activity/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+
+            List<ActivityMeasurement> measurements = JsonSerializer.Deserialize<List<ActivityMeasurement>>(
+                listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            return measurements;
         }
 
         public async Task<List<TemperatureMeasurement>> GetTemperatureFromDb(string userId)
@@ -51,6 +77,26 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
             return temperatures;
         }
+        
+        public async Task<Terrarium> GetTerrariumInfoFromDb(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}terrarium/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+
+            string terrariumAsJson = await responseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(terrariumAsJson);
+            Terrarium terrarium = JsonSerializer.Deserialize<Terrarium>(terrariumAsJson, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return terrarium;
+        }
+
+        
 
         public async Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string userId, string terrariumId)
         {
