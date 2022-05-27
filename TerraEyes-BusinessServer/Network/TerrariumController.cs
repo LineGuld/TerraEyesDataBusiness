@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TerraEyes_BusinessServer.Models;
+using TerraEyes_BusinessServer.Services;
 using TerraEyes_BusinessServer.Services.DataTranslator;
-using TerraEyes_BusinessServer.Services.FeedService;
 
 namespace TerraEyes_BusinessServer.Network
 {
@@ -24,7 +24,13 @@ namespace TerraEyes_BusinessServer.Network
         [HttpGet]
         public async Task<ActionResult<List<string>>> GetFeedRequests()
         {
-            return Ok();
+            if (!_feedService.HasNewRequests()) return Ok(null);
+            
+            List<string> preppedRequests = new List<string>();
+            preppedRequests.AddRange(_feedService.GetUnsentRequests());
+            _feedService.UpdateSentRequests();
+            return Ok(preppedRequests);
+
         }
 
         [HttpPost]
