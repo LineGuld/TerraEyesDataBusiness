@@ -5,13 +5,15 @@ namespace TerraEyes_BusinessServer.Models
 {
     public class User
     {
-        public User(string userId)
-        {
-            UserId = userId;
-        }
-
         [Required]
         public string UserId { get; set; }
 
+        public List<Terrarium> Terraria { get; set; }
+
+        public User(string userId)
+        {
+            UserId = userId;
+            Terraria = new List<Terrarium>();
+        }
     }
 }

@@ -14,7 +14,13 @@ namespace TerraEyes_BusinessServer.Hubs
         {
             DbConnect = new DbConnection();
         }
-        
+
+        public override Task OnConnectedAsync()
+        {
+            
+            return base.OnConnectedAsync();
+        }
+
         
         public async Task<List<ActivityMeasurement>> ActivityDataFromDataToAndroid(string userId)
         {
