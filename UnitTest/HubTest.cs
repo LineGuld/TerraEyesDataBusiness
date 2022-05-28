@@ -173,9 +173,50 @@ namespace UnitTest
             Assert.Equal(80.7, result[0].MaxHumidity);
             Assert.Equal(450, result[0].MaxCarbonDioxide);
         }
-        
-        
 
+        [Fact]
+        public void GetAnimalsByUserId()
+        {
+            List<Animal> result = appHub.AnimalsDataFromDataToAndroid("black").Result;
+            
+            Assert.Equal(1, result[0].Id);
+            Assert.Equal("Otto", result[0].Name);
+            Assert.Equal(1, result[0].Age);
+            Assert.Equal("Cairn Terrier", result[0].Species);
+            Assert.Equal("M", result[0].Gender);
+            Assert.False(result[0].Shedding);
+            Assert.False(result[0].Hibernating);
+            Assert.False(result[0].HasOffspring);
+        }
 
+        [Fact]
+        public void GetAnimalsByTerrariumId()
+        {
+            List<Animal> result = appHub.TerrariumAnimalsDataFromDataToAndroid("123abc").Result;
+            
+            Assert.Equal(1, result[0].Id);
+            Assert.Equal("Otto", result[0].Name);
+            Assert.Equal(1, result[0].Age);
+            Assert.Equal("Cairn Terrier", result[0].Species);
+            Assert.Equal("M", result[0].Gender);
+            Assert.False(result[0].Shedding);
+            Assert.False(result[0].Hibernating);
+            Assert.False(result[0].HasOffspring);
+        }
+        
+        [Fact]
+        public void GetAnimalsById()
+        {
+            Animal result = appHub.AnimalDataFromDataToAndroid(1).Result;
+            
+            Assert.Equal(1, result.Id);
+            Assert.Equal("Otto", result.Name);
+            Assert.Equal(1, result.Age);
+            Assert.Equal("Cairn Terrier", result.Species);
+            Assert.Equal("M", result.Gender);
+            Assert.False(result.Shedding);
+            Assert.False(result.Hibernating);
+            Assert.False(result.HasOffspring);
+        }
     }
 }
