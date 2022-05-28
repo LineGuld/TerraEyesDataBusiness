@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TerraEyes_BusinessServer.Hubs;
+using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
 using Xunit;
 
@@ -145,9 +146,34 @@ namespace UnitTest
             Assert.NotEqual(abc123[0].Measurement, to[0].Measurement);
         }
         
+        [Fact]
+        public void GetTerrariumByIdTest()
+        {
+            Terrarium result = appHub.TerrariumDataFromDataToAndroid("abc123").Result;
+            
+            Assert.Equal("abc123", result.Eui);
+            Assert.Equal("jack", result.UserId);
+            Assert.Equal(25.0, result.MinTemperature);
+            Assert.Equal(35.0, result.MaxTemperature);
+            Assert.Equal(70.0, result.MinHumidity);
+            Assert.Equal(80.7, result.MaxHumidity);
+            Assert.Equal(450, result.MaxCarbonDioxide);
+        }
         
+        [Fact]
+        public void GetTerrariumsForUserIdTest()
+        {
+            List<Terrarium> result = appHub.UsersTerrariumDataFromDataToAndroid("jack").Result;
+            
+            Assert.Equal("abc123", result[0].Eui);
+            Assert.Equal("jack", result[0].UserId);
+            Assert.Equal(25.0, result[0].MinTemperature);
+            Assert.Equal(35.0, result[0].MaxTemperature);
+            Assert.Equal(70.0, result[0].MinHumidity);
+            Assert.Equal(80.7, result[0].MaxHumidity);
+            Assert.Equal(450, result[0].MaxCarbonDioxide);
+        }
         
-
         
 
 
