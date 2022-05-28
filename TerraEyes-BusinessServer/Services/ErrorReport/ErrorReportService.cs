@@ -13,6 +13,7 @@
         Temperature,
         Humidity,
         CarbonDioxide,
-        Light
+        Light,
+        Feeding
     }
 }

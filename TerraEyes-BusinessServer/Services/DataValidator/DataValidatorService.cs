@@ -9,11 +9,13 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
     {
         private readonly IErrorReportService _errorReportService;
         private readonly IDbConnect _dbConnect;
+        private readonly FeedService _feedService;
 
         public DataValidatorService()
         {
             _errorReportService = new ErrorReportService();
             _dbConnect = new DbConnection();
+            _feedService = FeedService.GetInstance();
         }
 
         public async void ValidateMeasurementData(Measurement measurement)
@@ -40,6 +42,16 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
             
             if (measurement.CarbonDioxide > terrarium.MaxCarbonDioxide)
                 _errorReportService.ReportErrorToUser(ErrorTypes.CarbonDioxide, null, terrarium.UserId);
+
+            if (!_feedService.HasRequestedFeeding(measurement.Eui)) return;
+            if (measurement.ServoMoved)
+            {
+                _feedService.RemoveVerifiedRequest(measurement.Eui);
+            }
+            else if (_feedService.DecrementWaitTime(measurement.Eui) == 0)
+            {
+                _errorReportService.ReportErrorToUser(ErrorTypes.Feeding, null, terrarium.UserId);
+            }
         }
     }
 }

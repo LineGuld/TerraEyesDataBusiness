@@ -317,5 +317,45 @@ namespace TerraEyes_BusinessServer.DBNetworking
              if (!responseMessage.IsSuccessStatusCode)
                  throw new Exception($"StatusCode: {responseMessage.StatusCode}");
          }
+
+        public Task AddUserToDb(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddTerrariumToDb(Terrarium terrarium)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveTerrariumFromDb(string eui)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateTerrarium(Terrarium terrarium)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAnimalToDb(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAnimalFromDb(int animalId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAnimal(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Feed()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
