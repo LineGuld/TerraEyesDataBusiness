@@ -33,6 +33,11 @@ namespace TerraEyes_BusinessServer.Hubs
             await _dbConnect.AddTerrariumToDb(terrarium);
         }
 
+        public async void UpdateTerrarium(Terrarium terrarium)
+        {
+            await _dbConnect.UpdateTerrarium(terrarium);
+        }
+
         public async Task<List<ActivityMeasurement>> ActivityDataFromDataToAndroid(string userId)
         {
             return await _dbConnect.GetActivityFromDb(userId);
