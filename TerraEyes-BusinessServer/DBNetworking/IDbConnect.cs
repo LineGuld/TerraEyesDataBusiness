@@ -28,6 +28,8 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
         Task<List<Terrarium>> GetTerrariumsForUser(string userId);
 
+        Task<List<Animal>> GetAnimalsForUser(string userId);
+
         //Terrarium settings
         Task<Terrarium> GetTerrariumInfoFromDb(string eui);
         
