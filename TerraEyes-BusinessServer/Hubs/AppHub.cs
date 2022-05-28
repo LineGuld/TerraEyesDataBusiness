@@ -95,6 +95,11 @@ namespace TerraEyes_BusinessServer.Hubs
             return await DbConnect.GetAnimalsForTerrarium(eui);
         }
 
+        public async Task<Animal> AnimalDataFromDataToAndroid(int id)
+        {
+            return await DbConnect.GetAnimalById(id);
+        }
+
 
         //  Henter alle af den type målinger der hører til en given user
         public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId)

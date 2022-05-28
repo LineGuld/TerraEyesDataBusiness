@@ -203,5 +203,20 @@ namespace UnitTest
             Assert.False(result[0].Hibernating);
             Assert.False(result[0].HasOffspring);
         }
+        
+        [Fact]
+        public void GetAnimalsById()
+        {
+            Animal result = appHub.AnimalDataFromDataToAndroid(1).Result;
+            
+            Assert.Equal(1, result.Id);
+            Assert.Equal("Otto", result.Name);
+            Assert.Equal(1, result.Age);
+            Assert.Equal("Cairn Terrier", result.Species);
+            Assert.Equal("M", result.Gender);
+            Assert.False(result.Shedding);
+            Assert.False(result.Hibernating);
+            Assert.False(result.HasOffspring);
+        }
     }
 }
