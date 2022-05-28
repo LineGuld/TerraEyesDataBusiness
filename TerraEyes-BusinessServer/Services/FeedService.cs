@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.SignalR;
+using TerraEyes_BusinessServer.Hubs;
 
 namespace TerraEyes_BusinessServer.Services
 {
@@ -15,7 +17,6 @@ namespace TerraEyes_BusinessServer.Services
         {
             _unsentRequests = new List<string>();
             _sentRequests = new List<string>();
-            _unsentRequests.Add("0004A30B00259F36");
             _waitList = new Dictionary<string, int>();
         }
 

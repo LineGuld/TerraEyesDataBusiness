@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using TerraEyes_BusinessServer.Hubs;
+using TerraEyes_BusinessServer.Services.ErrorReport;
 
 namespace TerraEyes_BusinessServer
 {
@@ -39,6 +40,7 @@ namespace TerraEyes_BusinessServer
                     new[] {"application/octet-stream"});
             });
             services.AddSignalR();
+            services.AddSingleton<ErrorReportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,11 +16,6 @@ namespace TerraEyes_BusinessServer.Hubs
             _dbConnect = new DbConnection();
         }
 
-        public override Task OnConnectedAsync()
-        {
-            return base.OnConnectedAsync();
-        }
-
         public async void AddUserToDb(string userId)
         {
             var newUser = new User(userId);
