@@ -278,6 +278,25 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return terrarium;
         }
 
+        public async Task<List<Terrarium>> GetTerrariumsForUser(string userId)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}terrarium/{userId}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            List<Terrarium> terrariums = JsonSerializer.Deserialize<List<Terrarium>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return terrariums;
+        }
+
         public async Task PostTemperatureToDb(TemperatureMeasurement measurement)
         {
             using HttpClient client = new HttpClient();

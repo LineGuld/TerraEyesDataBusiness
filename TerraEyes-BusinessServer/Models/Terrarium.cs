@@ -9,5 +9,9 @@ namespace TerraEyes_BusinessServer.Models
         public double MinHumidity { get; set; }
         public double MaxHumidity { get; set; }
         public int MaxCarbonDioxide { get; set; }
+
+        public Terrarium()
+        {
+        }
     }
 }

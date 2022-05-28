@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using TerraEyes_BusinessServer.DBNetworking;
+using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
 
 namespace TerraEyes_BusinessServer.Hubs
@@ -74,6 +75,15 @@ namespace TerraEyes_BusinessServer.Hubs
             return await DbConnect.GetTerrariumServoFromDb(eui);
         }
 
+        public async Task<Terrarium> TerrariumDataFromDataToAndroid(string eui)
+        {
+            return await DbConnect.GetTerrariumInfoFromDb(eui);
+        }
+
+        public async Task<List<Terrarium>> UsersTerrariumDataFromDataToAndroid(string userId)
+        {
+            return await DbConnect.GetTerrariumsForUser(userId);
+        }
 
         //  Henter alle af den type målinger der hører til en given user
         public async Task<List<TemperatureMeasurement>> TemperatureDataFromDataToAndroid(string userId)
