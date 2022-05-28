@@ -16,6 +16,13 @@ namespace TerraEyes_BusinessServer.Hubs
             _dbConnect = new DbConnection();
         }
 
+        public override async Task OnConnectedAsync()
+        {
+            var user = await _dbConnect.GetUserByUserId(Context.UserIdentifier); //TODO: IDENTIFIER SKAL GENNEMGÅES SAMMEN MED ANDROID!
+            if (user is not null)
+                await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
+        }
+
         public async void AddUserToDb(string userId)
         {
             var newUser = new User(userId);
