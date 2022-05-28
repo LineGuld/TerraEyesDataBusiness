@@ -428,9 +428,18 @@ namespace TerraEyes_BusinessServer.DBNetworking
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
-        public Task AddTerrariumToDb(Terrarium terrarium)
+        public async Task AddTerrariumToDb(Terrarium terrarium)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var terrariumAsJson = JsonSerializer.Serialize(terrarium, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}terrarium", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
         public Task RemoveTerrariumFromDb(string eui)
