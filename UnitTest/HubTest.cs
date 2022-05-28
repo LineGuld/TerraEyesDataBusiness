@@ -218,5 +218,13 @@ namespace UnitTest
             Assert.False(result.Hibernating);
             Assert.False(result.HasOffspring);
         }
+
+        [Fact]
+        public void GetUserByUserId()
+        {
+            User result = appHub.UserDataFromDataToAndroid("black").Result;
+            
+            Assert.Equal("black", result.Id);
+        }
     }
 }
