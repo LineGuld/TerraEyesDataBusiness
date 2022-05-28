@@ -27,7 +27,6 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 
         private async void Validate(Measurement measurement)
         {
-            //Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
             Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
 
             if (measurement.Temperature < terrarium.MinTemperature)
@@ -39,7 +38,6 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
                 _errorReportService.ReportErrorToUser(ErrorTypes.Humidity, "min", terrarium.UserId);
             else if (measurement.Humidity > terrarium.MaxHumidity)
                 _errorReportService.ReportErrorToUser(ErrorTypes.Humidity, "max", terrarium.UserId);
-            
             if (measurement.CarbonDioxide > terrarium.MaxCarbonDioxide)
                 _errorReportService.ReportErrorToUser(ErrorTypes.CarbonDioxide, null, terrarium.UserId);
 

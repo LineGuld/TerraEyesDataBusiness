@@ -15,7 +15,7 @@ namespace TerraEyes_BusinessServer.Services
         {
             _unsentRequests = new List<string>();
             _sentRequests = new List<string>();
-            _unsentRequests.Add("TESTING");
+            _unsentRequests.Add("0004A30B00259F36");
             _waitList = new Dictionary<string, int>();
         }
 

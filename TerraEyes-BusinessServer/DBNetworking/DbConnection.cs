@@ -414,9 +414,14 @@ namespace TerraEyes_BusinessServer.DBNetworking
                  throw new Exception($"StatusCode: {responseMessage.StatusCode}");
          }
 
-        public Task AddUserToDb(User user)
+        public async Task AddUserToDb(string userId)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            HttpContent content = new StringContent(userId, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}user", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
         public Task AddTerrariumToDb(Terrarium terrarium)
