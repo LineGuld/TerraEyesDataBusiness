@@ -462,9 +462,18 @@ namespace TerraEyes_BusinessServer.DBNetworking
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
-        public Task AddAnimalToDb(Animal animal)
+        public async Task AddAnimalToDb(Animal animal)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var animalAsJson = JsonSerializer.Serialize(animal, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(animalAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}animal", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
         public Task RemoveAnimalFromDb(int animalId)
@@ -472,14 +481,18 @@ namespace TerraEyes_BusinessServer.DBNetworking
             throw new NotImplementedException();
         }
 
-        public Task UpdateAnimal(Animal animal)
+        public async Task UpdateAnimal(Animal animal, int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task Feed()
-        {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var terrariumAsJson = JsonSerializer.Serialize(animal, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}terrarium", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
     }
 }

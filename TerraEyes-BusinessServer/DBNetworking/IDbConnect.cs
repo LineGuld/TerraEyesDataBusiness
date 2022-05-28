@@ -50,7 +50,6 @@ namespace TerraEyes_BusinessServer.DBNetworking
         Task UpdateTerrarium(Terrarium terrarium);
         Task AddAnimalToDb(Animal animal);
         Task RemoveAnimalFromDb(int animalId);
-        Task UpdateAnimal(Animal animal);
-        Task Feed();
+        Task UpdateAnimal(Animal animal, int id);
     }
 }
