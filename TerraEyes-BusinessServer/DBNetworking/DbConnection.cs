@@ -316,6 +316,25 @@ namespace TerraEyes_BusinessServer.DBNetworking
             return animals;
         }
 
+        public async Task<List<Animal>> GetAnimalsForTerrarium(string eui)
+        {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}animals/x/{eui}");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+            }
+
+            string listAsString = await responseMessage.Content.ReadAsStringAsync();
+            List<Animal> animals = JsonSerializer.Deserialize<List<Animal>>(listAsString, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return animals;
+        }
+
 
         public async Task PostTemperatureToDb(TemperatureMeasurement measurement)
         {

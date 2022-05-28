@@ -27,12 +27,12 @@ namespace TerraEyes_BusinessServer.DBNetworking
         Task<List<TemperatureMeasurement>> GetTerrariumTemperaturesFromDb(string terrariumId);
 
         Task<List<Terrarium>> GetTerrariumsForUser(string userId);
-
-        Task<List<Animal>> GetAnimalsForUser(string userId);
-
+        
         //Terrarium settings
         Task<Terrarium> GetTerrariumInfoFromDb(string eui);
         
+        Task<List<Animal>> GetAnimalsForUser(string userId);
+        Task<List<Animal>> GetAnimalsForTerrarium(string eui);
         
         Task PostTemperatureToDb(TemperatureMeasurement measurement);
         Task PostHumidityToDb(HumidityMeasurement measurement);
