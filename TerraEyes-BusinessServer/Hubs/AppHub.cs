@@ -21,10 +21,11 @@ namespace TerraEyes_BusinessServer.Hubs
             return base.OnConnectedAsync();
         }
 
-        public void AddUserToDb(string userId)
+        public async void AddUserToDb(string userId)
         {
-            Groups.AddToGroupAsync(Context.ConnectionId, userId);
-            _dbConnect.AddUserToDb(userId);
+            var newUser = new User(userId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, userId);
+            await _dbConnect.AddUserToDb(newUser);
         }
 
         public async Task<List<ActivityMeasurement>> ActivityDataFromDataToAndroid(string userId)

@@ -414,10 +414,14 @@ namespace TerraEyes_BusinessServer.DBNetworking
                  throw new Exception($"StatusCode: {responseMessage.StatusCode}");
          }
 
-        public async Task AddUserToDb(string userId)
+        public async Task AddUserToDb(User user)
         {
             using var client = new HttpClient();
-            HttpContent content = new StringContent(userId, Encoding.UTF8);
+            var userAsJson = JsonSerializer.Serialize(user, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(userAsJson, Encoding.UTF8);
             var responseMessage = await client.PostAsync($"{uri}user", content);
             
             if (!responseMessage.IsSuccessStatusCode)

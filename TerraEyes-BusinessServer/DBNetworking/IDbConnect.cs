@@ -44,7 +44,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
         //Data Post from terrarium
         Task PostMeasurementToDb(Measurement measurement);
 
-        Task AddUserToDb(string userId);
+        Task AddUserToDb(User user);
         Task AddTerrariumToDb(Terrarium terrarium);
         Task RemoveTerrariumFromDb(string eui);
         Task UpdateTerrarium(Terrarium terrarium);
