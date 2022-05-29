@@ -27,7 +27,7 @@ namespace TerraEyes_BusinessServer.Hubs
 
         public async void SignIn(string userId)
         {
-            var user = await _dbConnect.GetUserByUserId(userId);
+            User user = await _dbConnect.GetUserByUserId(userId);
             if (user is not null)
                 await Groups.AddToGroupAsync(Context.ConnectionId, userId);
             else

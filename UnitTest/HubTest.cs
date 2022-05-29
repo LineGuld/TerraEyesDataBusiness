@@ -18,6 +18,13 @@ namespace UnitTest
         }
 
         [Fact]
+        public void SignInTest()
+        {
+            var id = "testID";
+            appHub.SignIn(id);
+        }
+
+        [Fact]
         public void GetActivityForUserTest()
         {
             List<ActivityMeasurement> result = appHub.ActivityDataFromDataToAndroid("jack").Result;

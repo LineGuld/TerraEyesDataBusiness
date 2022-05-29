@@ -356,21 +356,28 @@ namespace TerraEyes_BusinessServer.DBNetworking
 
         public async Task<User> GetUserByUserId(string userId)
         {
-            using HttpClient client = new HttpClient();
-            HttpResponseMessage responseMessage = await client.GetAsync($"{uri}user/{userId}");
-
-            if (!responseMessage.IsSuccessStatusCode)
+            try
             {
-                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+                using HttpClient client = new HttpClient();
+                HttpResponseMessage responseMessage = await client.GetAsync($"{uri}user/{userId}");
+
+                if (!responseMessage.IsSuccessStatusCode)
+                {
+                    throw new Exception($"StatusCode: {responseMessage.StatusCode}");
+                }
+
+                string listAsString = await responseMessage.Content.ReadAsStringAsync();
+                User user = JsonSerializer.Deserialize<User>(listAsString, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+                return user;
             }
-
-            string listAsString = await responseMessage.Content.ReadAsStringAsync();
-            User user = JsonSerializer.Deserialize<User>(listAsString, new JsonSerializerOptions
+            catch (JsonException e)
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-
-            return user;
+                return null;
+            }
         }
 
 
