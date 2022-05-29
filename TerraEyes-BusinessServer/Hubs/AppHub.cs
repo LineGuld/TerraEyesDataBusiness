@@ -18,11 +18,20 @@ namespace TerraEyes_BusinessServer.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            var user = await _dbConnect.GetUserByUserId(Context.UserIdentifier); //TODO: IDENTIFIER SKAL GENNEMGÅES SAMMEN MED ANDROID!
+            /*var user = await _dbConnect.GetUserByUserId(Context.User?.Identity?.Name); //TODO: IDENTIFIER SKAL GENNEMGÅES SAMMEN MED ANDROID!
             if (user is not null)
                 await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
-
+            */
             await base.OnConnectedAsync();
+        }
+
+        public async void SignIn(string userId)
+        {
+            var user = await _dbConnect.GetUserByUserId(userId);
+            if (user is not null)
+                await Groups.AddToGroupAsync(Context.ConnectionId, userId);
+            else
+                AddUserToDb(userId);
         }
 
         public async void AddUserToDb(string userId)
