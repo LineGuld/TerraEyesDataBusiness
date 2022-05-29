@@ -1,19 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using Microsoft.AspNetCore.SignalR;
+using Moq;
 using TerraEyes_BusinessServer.Hubs;
 using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace UnitTest
 {
     public class HubTest
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
         //Component tests for making sure the functions interact correctly and returns the correct result to the hub
         private readonly AppHub appHub;
         
-        public HubTest()
+        public HubTest(ITestOutputHelper testOutputHelper)
         {
+            _testOutputHelper = testOutputHelper;
             appHub = new AppHub();
         }
 
@@ -22,6 +29,24 @@ namespace UnitTest
         {
             var id = "testID";
             appHub.SignIn(id);
+        }
+
+        [Fact]
+        public void AddUserToDbTest()
+        {
+            var mockClients = new Mock<IHubCallerClients>();
+            var mockClientProxy = new Mock<IClientProxy>();
+            var mockClientContext = new Mock<HubCallerContext>();
+            var mockGroups = new Mock<IGroupManager>();
+            mockClients.Setup(clients => clients.All).Returns(mockClientProxy.Object);
+            mockClientContext.Setup(c => c.ConnectionId).Returns(Guid.NewGuid().ToString);
+            appHub.Clients = mockClients.Object;
+            appHub.Context = mockClientContext.Object;
+            appHub.Groups = mockGroups.Object;
+            Assert.NotNull(appHub.Context.ConnectionId);
+            Random random = new();
+            var id = "TestId" + random.Next();
+            appHub.AddUserToDb(id);
         }
 
         [Fact]

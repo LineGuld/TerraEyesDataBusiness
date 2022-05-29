@@ -428,7 +428,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-            HttpContent content = new StringContent(userAsJson, Encoding.UTF8);
+            HttpContent content = new StringContent(userAsJson, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync($"{uri}user", content);
             
             if (!responseMessage.IsSuccessStatusCode)
@@ -442,7 +442,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync($"{uri}terrarium", content);
             
             if (!responseMessage.IsSuccessStatusCode)
@@ -462,7 +462,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync($"{uri}terrarium/{eui}", content);
             
             if (!responseMessage.IsSuccessStatusCode)
@@ -476,7 +476,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-            HttpContent content = new StringContent(animalAsJson, Encoding.UTF8);
+            HttpContent content = new StringContent(animalAsJson, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync($"{uri}animal", content);
             
             if (!responseMessage.IsSuccessStatusCode)
@@ -495,7 +495,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync($"{uri}terrarium", content);
             
             if (!responseMessage.IsSuccessStatusCode)
