@@ -27,11 +27,11 @@ namespace UnitTest
         [Fact]
         public void SignInTest()
         {
-            var id = "testID";
+            var id = "SignInTestID";
             appHub.SignIn(id);
         }
 
-        [Fact]
+        /*[Fact]
         public void AddUserToDbTest()
         {
             var mockClients = new Mock<IHubCallerClients>();
@@ -47,7 +47,7 @@ namespace UnitTest
             Random random = new();
             var id = "TestId" + random.Next();
             appHub.AddUserToDb(id);
-        }
+        }*/
 
         [Fact]
         public void GetActivityForUserTest()

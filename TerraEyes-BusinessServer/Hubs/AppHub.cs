@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
@@ -30,15 +31,15 @@ namespace TerraEyes_BusinessServer.Hubs
             User user = await _dbConnect.GetUserByUserId(userId);
             if (user is not null)
                 await Groups.AddToGroupAsync(Context.ConnectionId, userId);
-            else
-                AddUserToDb(userId);
+            /*else
+                AddUserToDb(userId);*/
         }
 
-        public async void AddUserToDb(string userId)
+        public async void AddUserToDb(User user)
         {
-            var newUser = new User(userId);
-            await Groups.AddToGroupAsync(Context.ConnectionId, userId);
-            await _dbConnect.AddUserToDb(newUser);
+            //var newUser = new User(userId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
+            await _dbConnect.AddUserToDb(user);
         }
 
         public async void AddTerrariumToDb(Terrarium terrarium)
