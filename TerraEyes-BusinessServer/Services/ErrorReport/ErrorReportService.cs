@@ -1,10 +1,20 @@
-﻿namespace TerraEyes_BusinessServer.Services.ErrorReport
+﻿using Microsoft.AspNetCore.SignalR;
+using TerraEyes_BusinessServer.Hubs;
+
+namespace TerraEyes_BusinessServer.Services.ErrorReport
 {
-    public class ErrorReportService: IErrorReportService
+    public class ErrorReportService
     {
-        public void ReportErrorToUser(ErrorTypes errorType, string boundary, string userId)
+        private static IHubContext<AppHub> _context;
+
+        public ErrorReportService(IHubContext<AppHub> ctx)
         {
-            
+            _context = ctx;
+        }
+        public static async void ReportErrorToUser(ErrorTypes errorType, string boundary, string userId, string eui)
+        {
+            var msg = $"{errorType} has exceeded {boundary} boundary for terrarium id: {eui}";
+            await _context.Clients.Group(userId).SendAsync("ErrorReport", msg);
         }
     }
 

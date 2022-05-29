@@ -414,14 +414,32 @@ namespace TerraEyes_BusinessServer.DBNetworking
                  throw new Exception($"StatusCode: {responseMessage.StatusCode}");
          }
 
-        public Task AddUserToDb(User user)
+        public async Task AddUserToDb(User user)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var userAsJson = JsonSerializer.Serialize(user, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(userAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}user", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
-        public Task AddTerrariumToDb(Terrarium terrarium)
+        public async Task AddTerrariumToDb(Terrarium terrarium)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var terrariumAsJson = JsonSerializer.Serialize(terrarium, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}terrarium", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
         public Task RemoveTerrariumFromDb(string eui)
@@ -429,14 +447,33 @@ namespace TerraEyes_BusinessServer.DBNetworking
             throw new NotImplementedException();
         }
 
-        public Task UpdateTerrarium(Terrarium terrarium)
+        public async Task UpdateTerrarium(Terrarium terrarium)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var eui = terrarium.Eui;
+            var terrariumAsJson = JsonSerializer.Serialize(terrarium, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}terrarium/{eui}", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
-        public Task AddAnimalToDb(Animal animal)
+        public async Task AddAnimalToDb(Animal animal)
         {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var animalAsJson = JsonSerializer.Serialize(animal, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(animalAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}animal", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
 
         public Task RemoveAnimalFromDb(int animalId)
@@ -444,14 +481,18 @@ namespace TerraEyes_BusinessServer.DBNetworking
             throw new NotImplementedException();
         }
 
-        public Task UpdateAnimal(Animal animal)
+        public async Task UpdateAnimal(Animal animal, int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task Feed()
-        {
-            throw new NotImplementedException();
+            using var client = new HttpClient();
+            var terrariumAsJson = JsonSerializer.Serialize(animal, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8);
+            var responseMessage = await client.PostAsync($"{uri}terrarium", content);
+            
+            if (!responseMessage.IsSuccessStatusCode)
+                throw new Exception($"StatusCode: {responseMessage.StatusCode}");
         }
     }
 }

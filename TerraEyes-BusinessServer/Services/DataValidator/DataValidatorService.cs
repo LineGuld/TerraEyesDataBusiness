@@ -7,13 +7,11 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 {
     public class DataValidatorService : IDataValidatorService
     {
-        private readonly IErrorReportService _errorReportService;
         private readonly IDbConnect _dbConnect;
         private readonly FeedService _feedService;
 
         public DataValidatorService()
         {
-            _errorReportService = new ErrorReportService();
             _dbConnect = new DbConnection();
             _feedService = FeedService.GetInstance();
         }
@@ -27,21 +25,25 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
 
         private async void Validate(Measurement measurement)
         {
-            //Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
             Terrarium terrarium = await _dbConnect.GetTerrariumInfoFromDb(measurement.Eui);
 
             if (measurement.Temperature < terrarium.MinTemperature)
-                _errorReportService.ReportErrorToUser(ErrorTypes.Temperature, "min", terrarium.UserId);
+                ErrorReportService.ReportErrorToUser(
+                    ErrorTypes.Temperature, "minimum", terrarium.UserId, terrarium.Eui);
             else if (measurement.Temperature > terrarium.MaxTemperature)
-                _errorReportService.ReportErrorToUser(ErrorTypes.Temperature, "max", terrarium.UserId);
+                ErrorReportService.ReportErrorToUser(
+                    ErrorTypes.Temperature, "maximum", terrarium.UserId, terrarium.Eui);
 
             if (measurement.Humidity < terrarium.MinHumidity)
-                _errorReportService.ReportErrorToUser(ErrorTypes.Humidity, "min", terrarium.UserId);
+                ErrorReportService.ReportErrorToUser(
+                    ErrorTypes.Humidity, "minimum", terrarium.UserId, terrarium.Eui);
             else if (measurement.Humidity > terrarium.MaxHumidity)
-                _errorReportService.ReportErrorToUser(ErrorTypes.Humidity, "max", terrarium.UserId);
+                ErrorReportService.ReportErrorToUser(
+                    ErrorTypes.Humidity, "maximum", terrarium.UserId, terrarium.Eui);
             
             if (measurement.CarbonDioxide > terrarium.MaxCarbonDioxide)
-                _errorReportService.ReportErrorToUser(ErrorTypes.CarbonDioxide, null, terrarium.UserId);
+                ErrorReportService.ReportErrorToUser(
+                    ErrorTypes.CarbonDioxide, "maximum", terrarium.UserId, terrarium.Eui);
 
             if (!_feedService.HasRequestedFeeding(measurement.Eui)) return;
             if (measurement.ServoMoved)
@@ -50,7 +52,8 @@ namespace TerraEyes_BusinessServer.Services.DataValidator
             }
             else if (_feedService.DecrementWaitTime(measurement.Eui) == 0)
             {
-                _errorReportService.ReportErrorToUser(ErrorTypes.Feeding, null, terrarium.UserId);
+                ErrorReportService.ReportErrorToUser(
+                    ErrorTypes.Feeding, "wait time", terrarium.UserId, terrarium.Eui);
             }
         }
     }
