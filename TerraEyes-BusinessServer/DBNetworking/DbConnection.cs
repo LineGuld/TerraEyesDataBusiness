@@ -463,7 +463,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
             HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync($"{uri}terrarium/{eui}", content);
+            var responseMessage = await client.PatchAsync($"{uri}terrarium/{eui}", content);
             
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
@@ -496,7 +496,7 @@ namespace TerraEyes_BusinessServer.DBNetworking
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
             HttpContent content = new StringContent(terrariumAsJson, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync($"{uri}terrarium", content);
+            var responseMessage = await client.PatchAsync($"{uri}terrarium", content);
             
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception($"StatusCode: {responseMessage.StatusCode}");
