@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Reflection;
 using Microsoft.AspNetCore.SignalR;
 using Moq;
 using TerraEyes_BusinessServer.Hubs;
@@ -31,7 +32,7 @@ namespace UnitTest
             appHub.SignIn(id);
         }
 
-        /*[Fact]
+        [Fact]
         public void AddUserToDbTest()
         {
             var mockClients = new Mock<IHubCallerClients>();
@@ -46,8 +47,9 @@ namespace UnitTest
             Assert.NotNull(appHub.Context.ConnectionId);
             Random random = new();
             var id = "TestId" + random.Next();
+            _testOutputHelper.WriteLine(id);
             appHub.AddUserToDb(id);
-        }*/
+        }
 
         [Fact]
         public void GetActivityForUserTest()

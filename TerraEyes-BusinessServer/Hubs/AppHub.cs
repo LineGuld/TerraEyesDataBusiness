@@ -1,45 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TerraEyes_BusinessServer.DBNetworking;
 using TerraEyes_BusinessServer.Models;
 using TerraEyes_BusinessServer.Models.OutgoingMeasurements;
+using TerraEyes_BusinessServer.Services;
 using Hub = Microsoft.AspNetCore.SignalR.Hub;
 
+[assembly: InternalsVisibleTo("UnitTest")]
 namespace TerraEyes_BusinessServer.Hubs
 {
     public class AppHub : Hub
     {
         private readonly IDbConnect _dbConnect;
-
+        private readonly FeedService _feedService;
         public AppHub()
         {
             _dbConnect = new DbConnection();
-        }
-
-        public override async Task OnConnectedAsync()
-        {
-            /*var user = await _dbConnect.GetUserByUserId(Context.User?.Identity?.Name); //TODO: IDENTIFIER SKAL GENNEMGÅES SAMMEN MED ANDROID!
-            if (user is not null)
-                await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
-            */
-            await base.OnConnectedAsync();
+            _feedService = FeedService.GetInstance();
         }
 
         public async void SignIn(string userId)
         {
             User user = await _dbConnect.GetUserByUserId(userId);
-            if (user is not null)
-                await Groups.AddToGroupAsync(Context.ConnectionId, userId);
-            /*else
-                AddUserToDb(userId);*/
+            if (user is null) AddUserToDb(userId);
+            else
+                AddUserToDb(userId);
         }
-
-        public async void AddUserToDb(User user)
+        
+        internal async void AddUserToDb(string userId)
         {
-            //var newUser = new User(userId);
-            await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
-            await _dbConnect.AddUserToDb(user);
+            var newUser = new User(userId);
+            await Groups.AddToGroupAsync(Context.ConnectionId, userId);
+            await _dbConnect.AddUserToDb(newUser);
         }
 
         public async void AddTerrariumToDb(Terrarium terrarium)
@@ -60,6 +53,11 @@ namespace TerraEyes_BusinessServer.Hubs
         public async void UpdateAnimal(Animal animal, int id)
         {
             await _dbConnect.UpdateAnimal(animal, id);
+        }
+
+        public async void Feed(string eui)
+        {
+            _feedService.RequestFeeding(eui);
         }
 
         public async Task<List<ActivityMeasurement>> ActivityDataFromDataToAndroid(string userId)
